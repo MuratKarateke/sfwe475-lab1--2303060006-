@@ -1,0 +1,19 @@
+{
+  "name": "sfwe475",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+ "typecheck": "tsc --noEmit",
+ "start": "tsx src/index.ts"
+}
+,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
