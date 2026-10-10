@@ -1,18 +1,26 @@
-import { addTask, findTask, Task } from "./tasks";
+import { fetchTodo } from "./api";
+import { createTask } from "./createTask";
 
-let tasks: Task[] = [];
-tasks = addTask(tasks, "Read Chapter 1");
+async function main() {
+  console.log("--- Fetching Todo ---");
+  const todo = await fetchTodo(1);
+  if (todo) {
+    console.log("Fetched Task:", todo);
+  }
 
+  console.log("\n--- Creating Tasks (Validation Test) ---");
+  const valid = { id: 1, title: "Read", done: false };
+  const missingField = { id: 2, done: true };
+  const wrongType = { id: 3, title: "Write", done: "yes" };
 
-const task1 = findTask(tasks, 1);
-if (task1) {
-    console.log(task1.title);
+  for (const candidate of [valid, missingField, wrongType]) {
+    const result = createTask(candidate);
+    if (result.ok) {
+      console.log("Success! Created task:", result.task.title);
+    } else {
+      console.log("Failed to create task. Errors:", result.error.fieldErrors);
+    }
+  }
 }
 
-
-const task99 = findTask(tasks, 99);
-if (task99) {
-    console.log(task99.title);
-} else {
-    console.log("couldnt find task");
-}
+main();
